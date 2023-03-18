@@ -6,6 +6,15 @@ import javax.persistence.Id;
 @Entity
 public class Member {
 
+    // 동적으로 생성하는 객체는 꼭 No-arg 생성자가 필요
+    public Member() {
+
+    }
+    public Member(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @Id
     private Long id;
     private String name;
