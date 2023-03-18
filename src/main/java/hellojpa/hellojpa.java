@@ -16,13 +16,12 @@ public class hellojpa {
         tx.begin();
 
         try {
-            Member member1 = new Member(150L, "A");
-            Member member2 = new Member(160L, "B");
-
-            em.persist(member1);
-            em.persist(member2);
-            System.out.println("==============");
-            // 선 이후로 SQL이 나감.
+            // 영속성 컨텍스트 안에 있는 Member field 참조 주소 반환
+            Member member = em.find(Member.class, "150L");
+            member.setName("ABCDE");
+            // em.persist(member);가 필요없을까?
+            // Entity와 Snapshot을 비교하는 과정이 곧 수정되었는지 확인하는 과정이 됨
+            System.out.println("=========");
 
             tx.commit(); // 트랜잭션을 커밋하는 순간에 DB에 쿼리가 날아간다.
         } catch(Exception e) {
