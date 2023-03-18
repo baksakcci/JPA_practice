@@ -22,13 +22,17 @@ public class hellojpa {
             member.setName("JPA2");
 
             // 영속
-            em.persist(member);
+            em.persist(member); // 이 때 DB에 바로 저장되진 않는다
 
             Member findmember = em.find(Member.class, 101L);
+            Member findmember2 = em.find(Member.class, 101L);
 
             System.out.println("findmember.id = " + findmember.getId());
             System.out.println("findmember.name = " + findmember.getName());
-            tx.commit();
+
+            System.out.println("result = " + (findmember == findmember2));
+            System.out.println("findmember2 = " + findmember2.getId());
+            tx.commit(); // 트랜잭션을 커밋하는 순간에 DB에 쿼리가 날아간다.
         } catch(Exception e) {
             tx.rollback();
         } finally {
